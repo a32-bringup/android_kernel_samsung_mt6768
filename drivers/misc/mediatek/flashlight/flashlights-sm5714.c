@@ -210,6 +210,16 @@ static int sm5714_ioctl(unsigned int cmd, unsigned long arg)
 		pr_debug("FLASH_IOC_SET_VOLTAGE(%d)\n", channel);
 		break;
 
+	case FLASH_IOC_GET_HW_FAULT:
+		pr_debug("FLASH_IOC_GET_HW_FAULT(%d)\n", channel);
+		fl_arg->arg = 0;
+		break;
+
+	case FLASH_IOC_GET_HW_FAULT2:
+		pr_debug("FLASH_IOC_GET_HW_FAULT2(%d)\n", channel);
+		fl_arg->arg = 0;
+		break;
+
 	default:
 		pr_err("No such command and arg(%d): (%d, %d)\n",
 				channel, _IOC_NR(cmd), (int)fl_arg->arg);
