@@ -142,7 +142,7 @@ static int sm5714_ioctl(unsigned int cmd, unsigned long arg)
 		pr_debug("FLASH_IOC_SET_ONOFF(%d): %d\n",
 				channel, (int)fl_arg->arg);
 		if (fl_arg->arg == 1) {
-			if (sm5714_timeout_ms) {
+			if (sm5714_timeout_ms && !sm5714_is_torch(sm5714_current_level)) {
 				s = sm5714_timeout_ms / 1000;
 				ns = sm5714_timeout_ms % 1000 * 1000000;
 				ktime = ktime_set(s, ns);
@@ -208,6 +208,16 @@ static int sm5714_ioctl(unsigned int cmd, unsigned long arg)
 
 	case FLASH_IOC_SET_VOLTAGE:
 		pr_debug("FLASH_IOC_SET_VOLTAGE(%d)\n", channel);
+		break;
+
+	case FLASH_IOC_GET_HW_FAULT:
+		pr_debug("FLASH_IOC_GET_HW_FAULT(%d)\n", channel);
+		fl_arg->arg = 0;
+		break;
+
+	case FLASH_IOC_GET_HW_FAULT2:
+		pr_debug("FLASH_IOC_GET_HW_FAULT2(%d)\n", channel);
+		fl_arg->arg = 0;
 		break;
 
 	default:
